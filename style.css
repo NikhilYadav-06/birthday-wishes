@@ -5321,3 +5321,59 @@ footer span {
         font-size: 2.5rem;
     }
 }
+
+@media (max-width: 600px) {
+
+    .gift-glow,
+    .cake-glow {
+
+        animation-duration:
+            4s !important;
+    }
+
+
+    .floating-heart,
+    .floating-star {
+
+        animation-duration:
+            5s !important;
+    }
+
+
+    .memory-card:hover {
+        transform: none;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .hero h1,
+    .hero-title,
+    .main-title {
+        white-space: normal !important;
+    }
+
+}@media (max-width: 600px) {
+
+    .gift-glow,
+    .cake-glow {
+
+        animation-duration:
+            4s !important;
+    }
+
+
+    .floating-heart,
+    .floating-star {
+
+        animation-duration:
+            5s !important;
+    }
+
+
+    .memory-card:hover {
+        transform: none;
+    }
+
+}

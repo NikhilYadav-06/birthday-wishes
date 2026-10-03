@@ -11,492 +11,498 @@ document.addEventListener("DOMContentLoaded", () => {
    SURPRISE GIFT
 ========================================= */
 
-const giftBox =
-    document.getElementById("giftBox");
+    const giftBox =
+        document.getElementById("giftBox");
 
-const surpriseModal =
-    document.getElementById("surpriseModal");
+    const surpriseModal =
+        document.getElementById("surpriseModal");
 
-const closeSurprise =
-    document.getElementById("closeSurprise");
+    const closeSurprise =
+        document.getElementById("closeSurprise");
 
-const celebrateButton =
-    document.getElementById("celebrateButton");
+    const celebrateButton =
+        document.getElementById("celebrateButton");
 
-const giftHint =
-    document.getElementById("giftHint");
+    const giftHint =
+        document.getElementById("giftHint");
 
 
-if (giftBox && surpriseModal) {
+    if (giftBox && surpriseModal) {
 
-    giftBox.addEventListener("click", () => {
+        giftBox.addEventListener("click", () => {
 
-        giftBox.classList.add("opened");
-
-        if (giftHint) {
-            giftHint.textContent =
-                "Your surprise is opening... ✨";
-        }
-
-        setTimeout(() => {
-
-            surpriseModal.classList.add("active");
+            giftBox.classList.add("opened");
 
             if (giftHint) {
                 giftHint.textContent =
-                    "✦ Your surprise is here ✦";
+                    "Your surprise is opening... ✨";
             }
+            setTimeout(() => {
 
-            launchConfetti();
+                surpriseModal.classList.add("active");
 
-        }, 700);
+                if (giftHint) {
+                    giftHint.textContent =
+                        "✦ Your surprise is here ✦";
+                }
 
-    });
+                /* 🔓 Unlock Wishes */
 
-
-    const closeGift = () => {
-
-        surpriseModal.classList.remove(
-            "active"
-        );
-
-        setTimeout(() => {
-
-            giftBox.classList.remove(
-                "opened"
-            );
-
-        }, 300);
-
-    };
-
-
-    if (closeSurprise) {
-
-        closeSurprise.addEventListener(
-            "click",
-            closeGift
-        );
-
-    }
-
-
-    const backdrop =
-        surpriseModal.querySelector(
-            ".surprise-backdrop"
-        );
-
-    if (backdrop) {
-
-        backdrop.addEventListener(
-            "click",
-            closeGift
-        );
-
-    }
-
-
-    if (celebrateButton) {
-
-        celebrateButton.addEventListener(
-            "click",
-            () => {
+                localStorage.setItem(
+                    "giftCompleted",
+                    "true"
+                );
 
                 launchConfetti();
 
-                setTimeout(() => {
-                    launchConfetti();
-                }, 600);
+            }, 700);
 
-            }
-        );
-
-    }
-
-}
-/* =========================================
-   MAKE A WISH + CANDLES
-========================================= */
-
-const candles =
-    document.querySelectorAll(".candle");
-
-const wishButton =
-    document.getElementById("wishButton");
-
-const candleHint =
-    document.getElementById("candleHint");
-
-const fireworksModal =
-    document.getElementById("fireworksModal");
-
-const closeFireworks =
-    document.getElementById("closeFireworks");
-
-const fireworksCanvas =
-    document.getElementById("fireworksCanvas");
+        });
 
 
-let blownCandles = 0;
+        const closeGift = () => {
 
-
-/* =========================================
-   BLOW CANDLES
-========================================= */
-
-candles.forEach(candle => {
-
-    candle.addEventListener("click", () => {
-
-        if (candle.classList.contains("blown")) {
-            return;
-        }
-
-        candle.classList.add("blown");
-
-        blownCandles++;
-
-        /* Small celebration */
-
-        launchConfetti();
-
-
-        if (blownCandles === candles.length) {
-
-            if (candleHint) {
-
-                candleHint.textContent =
-                    "✨ Perfect! Now make your wish... ✨";
-
-            }
-
-            if (wishButton) {
-
-                wishButton.classList.add("ready");
-
-            }
-
-        } else {
-
-            if (candleHint) {
-
-                candleHint.textContent =
-                    `${candles.length - blownCandles} candles left... 🕯️`;
-
-            }
-
-        }
-
-    });
-
-});
-
-
-/* =========================================
-   MAKE MY WISH
-========================================= */
-
-if (wishButton) {
-
-    wishButton.addEventListener(
-        "click",
-        () => {
-
-            if (
-                blownCandles !== candles.length
-            ) {
-                return;
-            }
-
-            openFireworks();
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   FIREWORKS
-========================================= */
-
-function openFireworks() {
-
-    if (!fireworksModal) {
-        return;
-    }
-
-    fireworksModal.classList.add("active");
-
-    startFireworks();
-
-    launchConfetti();
-
-    setTimeout(() => {
-        launchConfetti();
-    }, 700);
-
-    setTimeout(() => {
-        launchConfetti();
-    }, 1400);
-
-}
-
-
-/* =========================================
-   CLOSE FIREWORKS
-========================================= */
-
-if (closeFireworks) {
-
-    closeFireworks.addEventListener(
-        "click",
-        () => {
-
-            fireworksModal.classList.remove(
+            surpriseModal.classList.remove(
                 "active"
             );
 
-        }
-    );
-
-}
-
-
-/* =========================================
-   FIREWORKS ENGINE
-========================================= */
-
-function startFireworks() {
-
-    if (!fireworksCanvas) {
-        return;
-    }
-
-    const canvas =
-        fireworksCanvas;
-
-    const ctx =
-        canvas.getContext("2d");
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-
-    let fireworks = [];
-
-    let particles = [];
-
-
-    function random(min, max) {
-
-        return Math.random() *
-            (max - min) +
-            min;
-
-    }
-
-
-    function createFirework() {
-
-        const x =
-            random(
-                canvas.width * .15,
-                canvas.width * .85
-            );
-
-        const y =
-            random(
-                canvas.height * .15,
-                canvas.height * .55
-            );
-
-
-        const color =
-            `hsl(${random(0,360)},100%,65%)`;
-
-
-        for (let i = 0; i < 55; i++) {
-
-            const angle =
-                (Math.PI * 2 / 55) * i;
-
-            const speed =
-                random(2, 6);
-
-
-            particles.push({
-
-                x,
-                y,
-
-                vx:
-                    Math.cos(angle) *
-                    speed,
-
-                vy:
-                    Math.sin(angle) *
-                    speed,
-
-                life: 1,
-
-                decay:
-                    random(.012,.025),
-
-                color
-
-            });
-
-        }
-
-    }
-
-
-    function draw() {
-
-        ctx.fillStyle =
-            "rgba(5,5,13,.18)";
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        /* Random fireworks */
-
-        if (Math.random() < .045) {
-
-            createFirework();
-
-        }
-
-
-        particles.forEach(
-            (particle, index) => {
-
-                particle.x +=
-                    particle.vx;
-
-                particle.y +=
-                    particle.vy;
-
-                particle.vy += .025;
-
-                particle.life -=
-                    particle.decay;
-
-
-                ctx.beginPath();
-
-                ctx.arc(
-                    particle.x,
-                    particle.y,
-                    2,
-                    0,
-                    Math.PI * 2
-                );
-
-                ctx.fillStyle =
-                    particle.color;
-
-                ctx.globalAlpha =
-                    particle.life;
-
-                ctx.fill();
-
-
-                if (
-                    particle.life <= 0
-                ) {
-
-                    particles.splice(
-                        index,
-                        1
-                    );
-
-                }
-
-            }
-        );
-
-
-        ctx.globalAlpha = 1;
-
-        requestAnimationFrame(draw);
-
-    }
-
-
-    draw();
-
-
-    /* Initial fireworks */
-
-    setTimeout(createFirework, 200);
-    setTimeout(createFirework, 700);
-    setTimeout(createFirework, 1200);
-    setTimeout(createFirework, 1800);
-
-}
-
-
-/* =========================================
-   ESC CLOSE
-========================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            fireworksModal
-        ) {
-
-            fireworksModal.classList.remove(
-                "active"
-            );
-
-        }
-
-    }
-);
-
-/* ESC closes surprise */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key === "Escape") {
-
-            if (
-                surpriseModal &&
-                surpriseModal.classList.contains(
-                    "active"
-                )
-            ) {
-
-                surpriseModal.classList.remove(
-                    "active"
-                );
+            setTimeout(() => {
 
                 giftBox.classList.remove(
                     "opened"
                 );
 
-            }
+            }, 300);
+
+        };
+
+
+        if (closeSurprise) {
+
+            closeSurprise.addEventListener(
+                "click",
+                closeGift
+            );
+
+        }
+
+
+        const backdrop =
+            surpriseModal.querySelector(
+                ".surprise-backdrop"
+            );
+
+        if (backdrop) {
+
+            backdrop.addEventListener(
+                "click",
+                closeGift
+            );
+
+        }
+
+
+        if (celebrateButton) {
+
+            celebrateButton.addEventListener(
+                "click",
+                () => {
+
+                    launchConfetti();
+
+                    setTimeout(() => {
+                        launchConfetti();
+                    }, 600);
+
+                }
+            );
 
         }
 
     }
-);
+    /* =========================================
+       MAKE A WISH + CANDLES
+    ========================================= */
+
+    const candles =
+        document.querySelectorAll(".candle");
+
+    const wishButton =
+        document.getElementById("wishButton");
+
+    const candleHint =
+        document.getElementById("candleHint");
+
+    const fireworksModal =
+        document.getElementById("fireworksModal");
+
+    const closeFireworks =
+        document.getElementById("closeFireworks");
+
+    const fireworksCanvas =
+        document.getElementById("fireworksCanvas");
+
+
+    let blownCandles = 0;
+
+
+    /* =========================================
+       BLOW CANDLES
+    ========================================= */
+
+    candles.forEach(candle => {
+
+        candle.addEventListener("click", () => {
+
+            if (candle.classList.contains("blown")) {
+                return;
+            }
+
+            candle.classList.add("blown");
+
+            blownCandles++;
+
+            /* Small celebration */
+
+            launchConfetti();
+
+
+            if (blownCandles === candles.length) {
+
+                if (candleHint) {
+
+                    candleHint.textContent =
+                        "✨ Perfect! Now make your wish... ✨";
+
+                }
+
+                if (wishButton) {
+
+                    wishButton.classList.add("ready");
+
+                }
+
+            } else {
+
+                if (candleHint) {
+
+                    candleHint.textContent =
+                        `${candles.length - blownCandles} candles left... 🕯️`;
+
+                }
+
+            }
+
+        });
+
+    });
+
+
+    /* =========================================
+       MAKE MY WISH
+    ========================================= */
+
+    if (wishButton) {
+
+        wishButton.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    blownCandles !== candles.length
+                ) {
+                    return;
+                }
+
+                openFireworks();
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       FIREWORKS
+    ========================================= */
+
+    function openFireworks() {
+
+        if (!fireworksModal) {
+            return;
+        }
+
+        fireworksModal.classList.add("active");
+
+        startFireworks();
+
+        launchConfetti();
+
+        setTimeout(() => {
+            launchConfetti();
+        }, 700);
+
+        setTimeout(() => {
+            launchConfetti();
+        }, 1400);
+
+    }
+
+
+    /* =========================================
+       CLOSE FIREWORKS
+    ========================================= */
+
+    if (closeFireworks) {
+
+        closeFireworks.addEventListener(
+            "click",
+            () => {
+
+                fireworksModal.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       FIREWORKS ENGINE
+    ========================================= */
+
+    function startFireworks() {
+
+        if (!fireworksCanvas) {
+            return;
+        }
+
+        const canvas =
+            fireworksCanvas;
+
+        const ctx =
+            canvas.getContext("2d");
+
+        canvas.width =
+            window.innerWidth;
+
+        canvas.height =
+            window.innerHeight;
+
+
+        let fireworks = [];
+
+        let particles = [];
+
+
+        function random(min, max) {
+
+            return Math.random() *
+                (max - min) +
+                min;
+
+        }
+
+
+        function createFirework() {
+
+            const x =
+                random(
+                    canvas.width * .15,
+                    canvas.width * .85
+                );
+
+            const y =
+                random(
+                    canvas.height * .15,
+                    canvas.height * .55
+                );
+
+
+            const color =
+                `hsl(${random(0, 360)},100%,65%)`;
+
+
+            for (let i = 0; i < 55; i++) {
+
+                const angle =
+                    (Math.PI * 2 / 55) * i;
+
+                const speed =
+                    random(2, 6);
+
+
+                particles.push({
+
+                    x,
+                    y,
+
+                    vx:
+                        Math.cos(angle) *
+                        speed,
+
+                    vy:
+                        Math.sin(angle) *
+                        speed,
+
+                    life: 1,
+
+                    decay:
+                        random(.012, .025),
+
+                    color
+
+                });
+
+            }
+
+        }
+
+
+        function draw() {
+
+            ctx.fillStyle =
+                "rgba(5,5,13,.18)";
+
+            ctx.fillRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+
+            /* Random fireworks */
+
+            if (Math.random() < .045) {
+
+                createFirework();
+
+            }
+
+
+            particles.forEach(
+                (particle, index) => {
+
+                    particle.x +=
+                        particle.vx;
+
+                    particle.y +=
+                        particle.vy;
+
+                    particle.vy += .025;
+
+                    particle.life -=
+                        particle.decay;
+
+
+                    ctx.beginPath();
+
+                    ctx.arc(
+                        particle.x,
+                        particle.y,
+                        2,
+                        0,
+                        Math.PI * 2
+                    );
+
+                    ctx.fillStyle =
+                        particle.color;
+
+                    ctx.globalAlpha =
+                        particle.life;
+
+                    ctx.fill();
+
+
+                    if (
+                        particle.life <= 0
+                    ) {
+
+                        particles.splice(
+                            index,
+                            1
+                        );
+
+                    }
+
+                }
+            );
+
+
+            ctx.globalAlpha = 1;
+
+            requestAnimationFrame(draw);
+
+        }
+
+
+        draw();
+
+
+        /* Initial fireworks */
+
+        setTimeout(createFirework, 200);
+        setTimeout(createFirework, 700);
+        setTimeout(createFirework, 1200);
+        setTimeout(createFirework, 1800);
+
+    }
+
+
+    /* =========================================
+       ESC CLOSE
+    ========================================= */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                fireworksModal
+            ) {
+
+                fireworksModal.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+    /* ESC closes surprise */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+
+                if (
+                    surpriseModal &&
+                    surpriseModal.classList.contains(
+                        "active"
+                    )
+                ) {
+
+                    surpriseModal.classList.remove(
+                        "active"
+                    );
+
+                    giftBox.classList.remove(
+                        "opened"
+                    );
+
+                }
+
+            }
+
+        }
+    );
     /* ================================
        MUSIC
     ================================= */
@@ -1184,9 +1190,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             piece.textContent =
                 symbols[
-                    Math.floor(
-                        Math.random() * symbols.length
-                    )
+                Math.floor(
+                    Math.random() * symbols.length
+                )
                 ];
 
             piece.style.position = "absolute";
@@ -1209,8 +1215,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "drop-shadow(0 0 6px rgba(255,150,220,.8))";
 
             piece.style.animation =
-                `introParticle ${
-                    Math.random() * 3 + 2
+                `introParticle ${Math.random() * 3 + 2
                 }s ease-in-out infinite`;
 
             piece.style.animationDelay =
@@ -1392,3 +1397,158 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+
+/* =========================================
+   🔐 PAGE LOCK SYSTEM
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
+
+
+    /* =====================================
+       WISHES PAGE
+       Unlock only after gift is opened
+    ===================================== */
+
+    if (currentPage === "wishes.html") {
+
+        if (
+            localStorage.getItem("giftCompleted")
+            !== "true"
+        ) {
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+    }
+
+
+    /* =====================================
+       MESSAGE PAGE
+       Unlock only after wishes completed
+    ===================================== */
+
+    if (currentPage === "message.html") {
+
+        if (
+            localStorage.getItem("wishesCompleted")
+            !== "true"
+        ) {
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+    }
+
+
+    /* =====================================
+       MEMORIES PAGE
+       Unlock only after message completed
+    ===================================== */
+
+    if (currentPage === "memories.html") {
+
+        if (
+            localStorage.getItem("messageCompleted")
+            !== "true"
+        ) {
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+    }
+
+});
+
+/* =========================================
+   💖 COMPLETE WISHES
+========================================= */
+
+const completeWishes =
+    document.getElementById(
+        "completeWishes"
+    );
+
+if (completeWishes) {
+
+    completeWishes.addEventListener(
+        "click",
+        () => {
+
+            localStorage.setItem(
+                "wishesCompleted",
+                "true"
+            );
+
+            window.location.href =
+                "message.html";
+
+        }
+    );
+
+}
+
+/* =========================================
+   💌 COMPLETE MESSAGE
+========================================= */
+
+const completeMessage =
+    document.getElementById(
+        "completeMessage"
+    );
+
+if (completeMessage) {
+
+    completeMessage.addEventListener(
+        "click",
+        () => {
+
+            localStorage.setItem(
+                "messageCompleted",
+                "true"
+            );
+
+            window.location.href =
+                "memories.html";
+
+        }
+    );
+
+}const wishesLink =
+    document.getElementById("wishesLink");
+
+if (wishesLink) {
+
+    const unlocked =
+        localStorage.getItem(
+            "giftCompleted"
+        ) === "true";
+
+    if (!unlocked) {
+
+        wishesLink.style.opacity = "0.45";
+
+        wishesLink.style.pointerEvents =
+            "none";
+
+        wishesLink.textContent =
+            "🔒 Complete the Surprise First";
+
+    }
+
+}
