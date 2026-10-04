@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
             fireworksCanvas;
 
         const ctx =
-            canvas.getContext("2d");
+            canvas.getContext("1d");
 
         canvas.width =
             window.innerWidth;
@@ -1002,12 +1002,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }, 10000);
     }
+/* =========================================
+   📱 MOBILE FRIENDLY FLOATING HEARTS
+========================================= */
 
+const isMobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+if (isMobile) {
 
     setInterval(
         createFloatingHeart,
-        2500
+        7000
     );
+
+} else {
+
+    setInterval(
+        createFloatingHeart,
+        3500
+    );
+
+}
+
 
 
     /* ================================
@@ -1397,158 +1414,3 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
-
-/* =========================================
-   🔐 PAGE LOCK SYSTEM
-========================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const currentPage =
-        window.location.pathname
-            .split("/")
-            .pop()
-            .toLowerCase();
-
-
-    /* =====================================
-       WISHES PAGE
-       Unlock only after gift is opened
-    ===================================== */
-
-    if (currentPage === "wishes.html") {
-
-        if (
-            localStorage.getItem("giftCompleted")
-            !== "true"
-        ) {
-
-            window.location.href =
-                "index.html";
-
-            return;
-        }
-
-    }
-
-
-    /* =====================================
-       MESSAGE PAGE
-       Unlock only after wishes completed
-    ===================================== */
-
-    if (currentPage === "message.html") {
-
-        if (
-            localStorage.getItem("wishesCompleted")
-            !== "true"
-        ) {
-
-            window.location.href =
-                "index.html";
-
-            return;
-        }
-
-    }
-
-
-    /* =====================================
-       MEMORIES PAGE
-       Unlock only after message completed
-    ===================================== */
-
-    if (currentPage === "memories.html") {
-
-        if (
-            localStorage.getItem("messageCompleted")
-            !== "true"
-        ) {
-
-            window.location.href =
-                "index.html";
-
-            return;
-        }
-
-    }
-
-});
-
-/* =========================================
-   💖 COMPLETE WISHES
-========================================= */
-
-const completeWishes =
-    document.getElementById(
-        "completeWishes"
-    );
-
-if (completeWishes) {
-
-    completeWishes.addEventListener(
-        "click",
-        () => {
-
-            localStorage.setItem(
-                "wishesCompleted",
-                "true"
-            );
-
-            window.location.href =
-                "message.html";
-
-        }
-    );
-
-}
-
-/* =========================================
-   💌 COMPLETE MESSAGE
-========================================= */
-
-const completeMessage =
-    document.getElementById(
-        "completeMessage"
-    );
-
-if (completeMessage) {
-
-    completeMessage.addEventListener(
-        "click",
-        () => {
-
-            localStorage.setItem(
-                "messageCompleted",
-                "true"
-            );
-
-            window.location.href =
-                "memories.html";
-
-        }
-    );
-
-}const wishesLink =
-    document.getElementById("wishesLink");
-
-if (wishesLink) {
-
-    const unlocked =
-        localStorage.getItem(
-            "giftCompleted"
-        ) === "true";
-
-    if (!unlocked) {
-
-        wishesLink.style.opacity = "0.45";
-
-        wishesLink.style.pointerEvents =
-            "none";
-
-        wishesLink.textContent =
-            "🔒 Complete the Surprise First";
-
-    }
-
-}

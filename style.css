@@ -5377,3 +5377,38 @@ footer span {
     }
 
 }
+
+/* =========================================================
+   ⚡ LOW POWER MOBILE MODE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .random-heart {
+        animation-duration: 8s !important;
+    }
+
+    .particle-sparkle {
+        animation-duration: 6s !important;
+    }
+
+    .confetti {
+        animation-duration: 3.5s !important;
+    }
+
+    .gift-glow {
+        animation-duration: 3.5s !important;
+    }
+
+}
+
+/* Reduce expensive blur effects on small screens */
+
+@media (max-width: 600px) {
+
+    .surprise-backdrop {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+}
