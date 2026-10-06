@@ -5412,3 +5412,51 @@ footer span {
     }
 
 }
+
+.letter-wrapper2{
+      margin: 9px;
+      padding: 12px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a5759 0%, #fecfef 99%, #fecfef 100%);
+      min-height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 600px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      color: #333;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #d81b60;
+    }
+
+    .footer-text {
+      font-style: italic;
+      margin-top: 20px;
+      color: #777;
+    }
+
